@@ -67,6 +67,16 @@ CREATE TABLE expenses (
     decided_by    TEXT        REFERENCES users(id),
     decided_at    TIMESTAMPTZ,
     decision_note TEXT,
+    CHECK (
+        (status IN ('approved', 'rejected', 'paid')
+         AND decided_by IS NOT NULL
+         AND decided_at IS NOT NULL)
+        OR
+        (status IN ('draft', 'submitted')
+         AND decided_by IS NULL
+         AND decided_at IS NULL
+         AND decision_note IS NULL)
+    ),
     receipt_url   TEXT,
     version       INTEGER     NOT NULL DEFAULT 1,
     created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
