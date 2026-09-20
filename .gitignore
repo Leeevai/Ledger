@@ -1,3 +1,7 @@
 lab-02-ledger-fastapi.md
 lab-02-volume-II-foundations-and-rocket.md                                                                                                                                                                                           
 .pyc
+.env
+.vnenv
+test.sql
+.vscode
