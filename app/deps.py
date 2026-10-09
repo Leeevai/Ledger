@@ -6,7 +6,7 @@ from .db import get_conn
 from .errors import APIError
 from .security import decode_access_token
 
-bearer = HTTPBearer(auto_error=False)   # we produce our own 401 body
+bearer = HTTPBearer(auto_error=False)  # we produce our own 401 body
 
 
 def current_user(
@@ -14,16 +14,28 @@ def current_user(
     conn=Depends(get_conn),
 ) -> dict:
     if creds is None:
-        raise APIError(401, "NOT_AUTHENTICATED", "Authorization header missing.",
-                       headers={"WWW-Authenticate": "Bearer"})
+        raise APIError(
+            401,
+            "NOT_AUTHENTICATED",
+            "Authorization header missing.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     try:
         payload = decode_access_token(creds.credentials)
     except jwt.ExpiredSignatureError:
-        raise APIError(401, "TOKEN_EXPIRED", "Access token has expired.",
-                       headers={"WWW-Authenticate": 'Bearer error="invalid_token"'})
+        raise APIError(
+            401,
+            "TOKEN_EXPIRED",
+            "Access token has expired.",
+            headers={"WWW-Authenticate": 'Bearer error="invalid_token"'},
+        )
     except jwt.InvalidTokenError:
-        raise APIError(401, "TOKEN_INVALID", "Access token is not valid.",
-                       headers={"WWW-Authenticate": 'Bearer error="invalid_token"'})
+        raise APIError(
+            401,
+            "TOKEN_INVALID",
+            "Access token is not valid.",
+            headers={"WWW-Authenticate": 'Bearer error="invalid_token"'},
+        )
 
     row = conn.execute(
         "SELECT id, email, display_name, is_active, created_at FROM users WHERE id = %s",

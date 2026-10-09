@@ -11,6 +11,7 @@ pool = ConnectionPool(
     open=False,
 )
 
+
 def get_conn():
     with pool.connection() as conn:
         yield conn

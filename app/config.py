@@ -1,6 +1,8 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class Settings(BaseSettings):
+    # Configuration for the application settings, including database connection, JWT settings, and rate limiting.
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     database_url: str = "postgresql://ledger:${POSTGRES_PASSWORD}@localhost:5234/ledger"
@@ -8,5 +10,6 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     access_token_ttl_seconds: int = 900
     rate_limit_per_minute: int = 120
+
 
 settings = Settings()

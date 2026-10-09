@@ -1,10 +1,11 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
-Strict = ConfigDict(extra="forbid")     # unknown fields → 422, not silently ignored
+Strict = ConfigDict(extra="forbid")  # unknown fields → 422, not silently ignored
 
 
 # ---------- users ----------
+
 
 class UserCreate(BaseModel):
     model_config = Strict
@@ -27,6 +28,7 @@ class UserOut(BaseModel):
 
 
 # ---------- sessions ----------
+
 
 class LoginIn(BaseModel):
     model_config = Strict
