@@ -17,6 +17,7 @@ def register(body: UserCreate, conn=Depends(get_conn)):
     ).fetchone()
     if existing:
         # 409, not 422: the request is well-formed, the WORLD conflicts with it.
+        # TODO: hide email existance from the user to avoid leaking information about registered emails. This can be done by returning a generic error message instead of specifying that the email is already taken.
         raise APIError(409, "EMAIL_TAKEN", "An account with that email already exists.")
 
     return conn.execute(
@@ -34,7 +35,7 @@ def me(user=Depends(current_user)):
 
 @router.patch("/users/me", response_model=UserOut)
 def update_me(body: UserPatch, user=Depends(current_user), conn=Depends(get_conn)):
-    fields = body.model_dump(exclude_unset=True)  # ← see §26
+    fields = body.model_dump(exclude_unset=True)  # exclude_unset=True → only include fields that were actually supplied in the request
     if not fields:
         raise APIError(422, "EMPTY_PATCH", "No updatable fields were supplied.")
     return conn.execute(
