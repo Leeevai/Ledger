@@ -1,0 +1,23 @@
+info:
+  name: login
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{ledger}}/v1/sessions"
+  body:
+    type: json
+    data: |-
+      {
+        "email":"hassanmohseen22@gmail.com",
+        "password": "hassan2004"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

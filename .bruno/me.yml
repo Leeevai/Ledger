@@ -1,0 +1,18 @@
+info:
+  name: me
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{ledger}}/v1/users/me"
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfVWlSWXl3Vk42WDVKZFkiLCJpYXQiOjE3OTE2ODI1MTIsImV4cCI6MTc5MTY4MzQxMiwidHlwIjoiYWNjZXNzIn0.V6kbkcksIl7lSFpHjS61MtsMzTgTUiMPz7Krq1HHAcc
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

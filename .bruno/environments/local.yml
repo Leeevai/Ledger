@@ -1,0 +1,5 @@
+name: local
+variables:
+  - name: ledger
+    value: localhost:8000
+    description: ""
