@@ -3,17 +3,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from . import errors
-#from .authz import load_permission_cache
+from .authz import load_permission_cache
 from .db import pool
-from .routers import sessions, users
+from .routers import expenses, groups, sessions, users
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     pool.open()
     with pool.connection() as conn:
-        # load_permission_cache(conn)
-        pass
+        load_permission_cache(conn)
     yield
     pool.close()
 
@@ -21,7 +20,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Ledger API", version="1.0.0", lifespan=lifespan)
 errors.install(app)
 
-for r in (users.router, sessions.router):
+for r in (users.router, sessions.router, groups.router, expenses.router):
     app.include_router(r)
 
 
