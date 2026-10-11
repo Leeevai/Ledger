@@ -5,3 +5,5 @@ lab-02-volume-II-foundations-and-rocket.md
 .vnenv
 test.sql
 .vscode
+.pyc
+__pycache__
