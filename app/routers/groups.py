@@ -110,3 +110,5 @@ def remove_member(
                  (user_id, group_id))
     # No 404 if absent: DELETE is idempotent, and the desired state is reached.
     return None
+
+
